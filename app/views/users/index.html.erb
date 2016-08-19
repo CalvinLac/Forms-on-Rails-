@@ -1,6 +1,7 @@
 <h1> hi</h1>
 
 <% @users.each do |u| %>
+  <%= link_to u.id, user_path(u)%>
   <%= u.username %>
   <%= u.password %>
   <%= u.email %>
