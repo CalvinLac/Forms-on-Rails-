@@ -11,3 +11,21 @@
   <br>
   <%= submit_tag("Create new user") %>
 <% end %> 
+
+<%= form_tag("/users", method: "post") do %>
+  <%= label_tag(:username, "Username") %>
+  <%= text_field_tag(:username) %>
+  <%= label_tag(:password, "Password") %>
+  <%= text_field_tag(:password) %>
+  <%= label_tag(:email, "Email") %>
+  <%= text_field_tag(:email) %>
+  <br>
+  <%= submit_tag("Create new user") %>
+<% end %> 
+
+<%= form_for @user do |f| %>
+  Username: <%= f.text_field :username %>
+  Email: <%= f.email_field :email, :value => "email@email.com" %> 
+  Password: <%= f.password_field :password %>
+  <%= f.submit %>
+<%end%>
