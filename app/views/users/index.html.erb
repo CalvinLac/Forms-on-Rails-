@@ -1,0 +1,9 @@
+<h1> hi</h1>
+
+<% @users.each do |u| %>
+  <%= u.username %>
+  <%= u.password %>
+  <%= u.email %>
+<%end%>
+
+<%= link_to "Create a new user", new_user_path %>
