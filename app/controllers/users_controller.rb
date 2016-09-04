@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   
+  before_action :require_login, :except => [:new, :create]
+  before_action :require_current_user, :only => [:edit, :update, :destroy]
+
+
   def index
     @users = User.all
   end
@@ -13,12 +17,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(whitelisted_user_params)
     if @user.save
-      flash[:success] = "Nice, you created an account!"
+      sign_in(@user)  # <<<<<<<
+      flash[:success] = "Created new user!"
       redirect_to @user
     else
-      flash[:error] = "There was an error when trying to create your account"
+      flash.now[:error] = "Failed to Create User!"
       render :new
     end
   end
@@ -43,7 +48,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:username, :password, :email)
+    params.require(:user).permit(:username, :password, :email, :password_confirmation)
   end
 
 end
